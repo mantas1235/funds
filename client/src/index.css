@@ -23,16 +23,3 @@ code {
 img {
   max-width: 440px;
 }
-
-.articles {
-  display: flex;
-margin: 100px 0 20px 400px;
-  flex-direction: column;
-}
-
-body {
-  background-size: contain;
-  background-color: aqua;
-
-}
-

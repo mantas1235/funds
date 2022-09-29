@@ -1,7 +1,3 @@
-//Kaip home puslapyje atvaizduoti vartotoja kuris prisijunges?
-// Kaip priskirti posta prisijungusiam vartotojui>
-//
-
 
 
 import { useState, useEffect, useContext } from "react";
@@ -14,15 +10,12 @@ import MainContext from '../MainContext'
 const Home = () => {
 
     const { setUserInfo } = useContext(MainContext)
-    const [posts, setPosts] = useState([]);
     const [comment, setComment] = useState('')
-    const [users, setUsers] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: '',
-        profile_photo: '',
-        profile_name: ''
+    const [posts, setPosts] = useState({
+        title: '',
+        image: '',
+        content: '',
+        all_sum: ''
     })
 
 
@@ -31,27 +24,29 @@ const Home = () => {
         status: "",
     });
 
-    const [keyword, setKeyword] = useState('')
+    // const [keyword, setKeyword] = useState('')
 
     const [refresh, setRefresh] = useState(false);
     const navigate = useNavigate()
-    useEffect(() => {
-        axios.get('/api/users/')
-            .then(resp => {
-                if (resp.data.message)
-                    setAlert({
-                        message: resp.data.message,
-                        status: "danger",
-                    });
-                setUsers(resp.data);
-            })
-            .catch((error) => {
-                setAlert({
-                    message: error.response.data,
-                    status: "danger",
-                })
-            })
-    }, [refresh]);
+
+
+    // useEffect(() => {
+    //     axios.get('/api/posts/')
+    //         .then(resp => {
+    //             if (resp.data.message)
+    //                 setAlert({
+    //                     message: resp.data.message,
+    //                     status: "danger",
+    //                 });
+    //             setPosts(resp.data);
+    //         })
+    //         .catch((error) => {
+    //             setAlert({
+    //                 message: error.response.data,
+    //                 status: "danger",
+    //             })
+    //         })
+    // }, [refresh]);
 
 
 
@@ -66,7 +61,6 @@ const Home = () => {
                 //       post.createdAt = date.toLocaleDateString("lt-LT");
                 //       return post;
                 //     })
-                console.log(resp.data);
                 setPosts(resp.data);
             })
             .catch((error) => {
@@ -78,49 +72,49 @@ const Home = () => {
     }, [refresh]);
 
 
-    const handleForm = (e) => {
-        e.preventDefault()
-        console.log('veikia')
-    }
+    // const handleForm = (e) => {
+    //     e.preventDefault()
+    //     console.log('veikia')
+    // }
 
-    const handleSearch = (e) => {
-        e.preventDefault()
+    // const handleSearch = (e) => {
+    //     e.preventDefault()
 
-        if (keyword === '')
-            return setRefresh(!refresh)
+    //     if (keyword === '')
+    //         return setRefresh(!refresh)
 
-        axios.get('/api/posts/search/' + keyword)
-            .then(resp => {
-                setPosts(resp.data)
-            })
-            .catch((error) => {
-                setAlert({
-                    message: error.response.data,
-                    status: "danger",
-                })
-                window.scrollTo(0, 0)
+    //     axios.get('/api/posts/search/' + keyword)
+    //         .then(resp => {
+    //             setPosts(resp.data)
+    //         })
+    //         .catch((error) => {
+    //             setAlert({
+    //                 message: error.response.data,
+    //                 status: "danger",
+    //             })
+    //             window.scrollTo(0, 0)
 
-                setTimeout(() => navigate('/login'), 2000)
-            })
+    //             setTimeout(() => navigate('/login'), 2000)
+    //         })
 
-    }
-    const handleLogout = () => {
-        axios.get('/api/users/logout/')
-            .then(resp => {
-                setUserInfo({})
-                setAlert({
-                    message: resp.data,
-                    status: 'success'
-                })
+    // }
+    // const handleLogout = () => {
+    //     axios.get('/api/posts/logout/')
+    //         .then(resp => {
+    //             setUserInfo({})
+    //             setAlert({
+    //                 message: resp.data,
+    //                 status: 'success'
+    //             })
 
-                navigate('/')
-            })
-    }
+    //             navigate('/')
+    //         })
+    // }
 
     return (
         // {loggedIn &&}
         <div className="main_container">
-            <div className="form-group dflex">
+            {/* <div className="form-group dflex">
                 <form onSubmit={handleSearch} >
                     <div className="filter mb-5">
                         <input type='text' className='form-control' onChange={(e) => setKeyword(e.target.value)}
@@ -131,8 +125,11 @@ const Home = () => {
                         <button className="btn btn-primary">Ieskoti</button>
                     </div>
                 </form>
-            </div>
+            </div> */}
 
+
+
+            {/* 
             <div className="users">
                 {users.length > 0 &&
                     users.map((user) => {
@@ -146,11 +143,10 @@ const Home = () => {
 
                     })}
 
-            </div>
+            </div> */}
 
-            <div className="sideProfile">
+            {/* <div className="sideProfile">
                 <div className="profile_box">
-                    <img src='https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=2000' alt='' />
                     <p>Your Mantstagram Profile</p>
                     <button className="nav-link" onClick={handleLogout}>
                         Log Out
@@ -158,7 +154,7 @@ const Home = () => {
 
                 </div>
 
-            </div>
+            </div> */}
 
             <div className="conteiner">
                 {alert.message && (
@@ -172,35 +168,21 @@ const Home = () => {
 
                                 <div key={post.id} className="box">
                                     <div className="title">
-                                        <img src={post.user.profile_photo} alt='' className="profile_photo" />
-                                        <h4>{post.user.first_name}</h4>
+                                        <h4>{post.title}</h4>
 
                                     </div>
                                     <div className="image">
                                         <img src={post.image} alt={post.title} />
                                     </div>
-                                    <div className="svg_kontainer">
-                                        <span className="svg">
-
-                                            <Link><img className="heart" src="https://i.pinimg.com/originals/50/9e/af/509eaf4abcbd88d8e1fc4a9734cd9e2e.png" alt="" /></Link>
-                                            <Link><img className="heart" src="https://static.thenounproject.com/png/638755-200.png" alt="" /></Link>
-                                            <Link><img className="heart" src="https://cdn2.iconfinder.com/data/icons/instagram-outline/19/7-512.png" alt="" /></Link>
-                                        </span>
-                                        <span className="last_svg"><Link><img className="heart" src="https://www.clipartmax.com/png/small/473-4737744_bookmark-png-clipart-bookmark-icon-instagram.png" alt="" /></Link></span>
+                                    <div className="post_content">
+                                        <p>{post.content}</p>
                                     </div>
-                                    <div className="category">
-                                        <p>{post.city}</p>
-                                    </div>
-                                    <div className="comments">
-                                        <form onSubmit={(e) => handleForm(e)}>
-                                            <textarea name="comments" type='text' onChange={(e) => setComment(e.target.value)} />
-                                            <button type="submit" className="com_btn">Komentuoti</button>
-                                        </form>
+                                    <div className="sum">
+                                        <p>{post.all_sum}</p>
                                     </div>
 
                                     <div className="buttons">
-                                        <Link to={"/post/" + post.id} className='skaityti'> Skiatyti placiau </Link>
-                                        <Link to={"/edit/" + post.id} className='redaguoti'> Redaguoti </Link>
+                                        <Link to={"/edit/" + post.id} className='skaityti'> Skiatyti placiau </Link>
                                     </div>
 
 

@@ -35,7 +35,9 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
 
   try {
-    const post = await db.Posts.findByPk(req.params.id);
+    const post = await db.Posts.findByPk(req.params.id, {
+      include: db.Transfers
+    });
     res.json(post);
   } catch (error) {
     res.status(500).send("Ivyko serverio klaida");
@@ -96,22 +98,22 @@ router.post("/new", upload.single('image'), async (req, res) => {
 
 
 
-// router.put("/edit/:id", upload.single('image'), auth, async (req, res) => {
+router.put("/edit/:id", upload.single('image'), auth, async (req, res) => {
 
-//   try {
-//     if (req.file)
-//       req.body.image = '/uploads/' + req.file.filename
-//     const post = await db.Posts.findByPk(req.params.id);
-//     post.update(req.body);
-//     res.json({ message: "Irasas sekmingai atnaujintas" });
+  try {
+    if (req.file)
+      req.body.image = '/uploads/' + req.file.filename
+    const post = await db.Posts.findByPk(req.params.id);
+    post.update(req.body);
+    res.json({ message: "Irasas sekmingai atnaujintas" });
 
-//   }
+  }
 
-//   catch (error) {
-//     res.status(500).send("Ivyko serverio klaida");
-//   }
+  catch (error) {
+    res.status(500).send("Ivyko serverio klaida");
+  }
 
-// });
+});
 
 router.delete("/delete/:id", async (req, res) => {
 

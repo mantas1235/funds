@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 
 const NewPost = () => {
-    const [postForm, setPostForm] = useState({
-        title: "",
-        city: "",
-        image: "",
-        content: ""
-    });
+    const [posts, setPosts] = useState({
+        title: '',
+        image: '',
+        content: '',
+        all_sum: ''
+    })
 
 
     const [alert, setAlert] = useState({
@@ -20,16 +20,17 @@ const NewPost = () => {
     const navigate = useNavigate()
 
     const handleForm = (e) => {
-        setPostForm({ ...postForm, [e.target.name]: e.target.name === 'image' ? e.target.files[0] : e.target.value });
+        setPosts({ ...posts, [e.target.name]: e.target.name === 'image' ? e.target.files[0] : e.target.value });
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+
         const form = new FormData()
 
-        for (const key in postForm) {
-            form.append(key, postForm[key])
+        for (const key in posts) {
+            form.append(key, posts[key])
         }
 
         axios.post("/api/posts/new/", form)
@@ -61,8 +62,8 @@ const NewPost = () => {
                     <input type="text" name="title" onChange={(e) => handleForm(e)} />
                 </div>
                 <div className="Miestas" >
-                    <label>Miestas</label>
-                    <input type="text" name="city" onChange={(e) => handleForm(e)} />
+                    <label>Aprašymas</label>
+                    <input type="text" name="content" onChange={(e) => handleForm(e)} />
                 </div>
                 <div className='nuotrauka'>
                     <label>Nuotrauka</label>
@@ -70,8 +71,8 @@ const NewPost = () => {
                 </div>
 
                 <div className='kontentas'>
-                    <label>kontentas</label>
-                    <input type="text" name="content" onChange={(e) => handleForm(e)} />
+                    <label>Reikalinga Suma</label>
+                    <input type="number" name="all_sum" onChange={(e) => handleForm(e)} />
                 </div>
 
                 <button className='button_prideti'>Prideti</button>

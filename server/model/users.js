@@ -20,9 +20,8 @@ const Users = (sequelize) => {
       defaultValue: 0
     },
     password: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 0
     }
   }
 

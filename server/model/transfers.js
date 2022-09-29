@@ -4,7 +4,11 @@ const Transfers = (sequelize) => {
   const Schema = {
 
     transfers: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING,
       allowNull: false
     }
   };

@@ -1,49 +1,39 @@
-import { Link } from "react-router-dom";
 
-const Header = () => {
+import { Link } from 'react-router-dom'
 
+const Header = (props) => {
+
+    const loggedIn = props.loggedIn
 
 
     return (
-        <header className="mb-4">
-            <div className="header_container ">
-                <Link
-                    to="/home-page"
-                    className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
-                >
-                    <span className="fs-4">Mantstagramas</span>
-                </Link>
 
-                <ul className="nav">
-                    <li className="">
-                        <Link to="/home-page">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Ios-home-outline.svg/512px-Ios-home-outline.svg.png" alt="home" className="home_svg" />
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to="/new" className="nav-link" aria-current="page">
-                            <img src="https://static.thenounproject.com/png/3318800-200.png" className="home_svg" alt="add" />
-                        </Link></li>
-                    <li className="nav-item">
-                        <Link to="/new" className="nav-link" aria-current="page">
-                            <img src="https://www.svgrepo.com/show/30539/instagram-logo.svg" className="home_svg" alt="add" />
-                        </Link></li>
-                    <li className="nav-item">
-                        <Link to="/new" className="nav-link" aria-current="page">
-                            <img src="https://svgheart.com/wp-content/uploads/2020/06/valentine-fancy-heart-free-svg-cut-file.png" className="home_svg" alt="add" />
-                        </Link></li>
+        <div className="container_header">
+            <header className="d-flex flex-wrap align-items-center  py-3 mb-4 header">
 
-                    <li className="nav-item">
-                    </li>
+                <ul className="nav col-12 col-md-auto mb-2  mb-md-0">
+                    <li className='nav-item'><Link to="/" className="nav-link px-2 link-secondary"><h2>FundRaiser</h2></Link></li>
+
+
+                    <>
+                        <li className='nav-item'>
+                            <Link to="/new-post" className="naujasPostas">Naujas Sarasas  </Link>
+                        </li>
+                        <li className='nav-item'><Link to="/logout" className="btn btn-outline-primary me-2">Atsijungti</Link></li>
+
+                    </>
+                    <div className='buttons'>
+                        <li className='nav-item'><Link to="/login" className="btn btn-outline-primary me-2">Prisijungti</Link></li>
+                        <li className='nav-item'></li>
+                    </div>
+
 
 
                 </ul>
-                {/* <div>
-                    Sveiki, {userInfo.first_name + '  ' + userInfo.last_name}
-                </div> */}
-            </div>
-        </header>
-    )
+            </header>
+        </div>
 
+    )
 }
-export default Header;
+
+export default Header

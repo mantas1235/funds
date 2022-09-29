@@ -52,9 +52,6 @@ const Login = () => {
 
 
     return <div className="container_login">
-        <div className="phone_image">
-            <img src="https://i.pinimg.com/originals/9c/60/d8/9c60d8083f3f2253ce9a3bfdc01ebb68.png" alt="" />
-        </div>
         <h1>Prisijungimas</h1>
         {alert.message && (
             <div className={"alert alert-" + alert.status}>{alert.message}</div>
